@@ -53,11 +53,10 @@ def motion_detection(frame):
     
 while True:
     ret, frame = cap.read()    
-    frame = motion_detection(frame)
-    
     if frame[0][0][0] == None:
         break
-        
+
+    frame = motion_detection(frame)
     cv2.imshow('Frame', frame)
     
     if cv2.waitKey(1) & 0xFF == ord('q'):
