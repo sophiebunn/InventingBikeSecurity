@@ -6,6 +6,7 @@ from threading import Condition
 import motion
 import cv2
 from picamera2 import Picamera2
+import numpy as np
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
@@ -72,11 +73,13 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     with output.condition:
                         output.condition.wait()
                         frame = output.frame
+                        #frame_arr = np.array(frame)
+                        cv_frame = cv2.imread(frame, cv2.IMREAD_UNCHANGED)
                         #frame = cv2.cvtColor(output.frame, cv2.COLOR_BGR2GRAY)
                         #frame = motion.motion_detection(frame)
                     if not_set == True:
-                        first_frame = output.frame
-                    if motion.motion_detection(frame, first_frame):
+                        first_frame = cv_frame
+                    if motion.motion_detection(cv_frame, first_frame):
                         update_page(True)
 
                     self.wfile.write(b'--FRAME\r\n')
@@ -102,6 +105,7 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 picam2 = Picamera2()
 picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
 output = StreamingOutput()
+
 picam2.start_recording(JpegEncoder(), FileOutput(output))
 
 try:
