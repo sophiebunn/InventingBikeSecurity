@@ -9,6 +9,7 @@ from picamera2 import Picamera2
 import numpy as np
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
+from PIL import Image
 
 #http://10.38.64.42:5458
 
@@ -16,12 +17,13 @@ not_set = True
 first_frame = None
 
 def update_page(motion_detected):
+    global PAGE
     if motion_detected:
         motion_message = "motion detected"
     else:
         motion_message = "no motion detected"
 
-    return f"""
+    PAGE = f"""
     <html>
     <head>
         <title>Inventing Bike Security</title>
@@ -35,7 +37,7 @@ def update_page(motion_detected):
     </html>
     """
 
-PAGE = update_page(False)
+update_page(False)
 
 class StreamingOutput(io.BufferedIOBase):
     def __init__(self):
@@ -55,6 +57,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Location', '/index.html')
             self.end_headers()
         elif self.path == '/index.html':
+            print('html')
             content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
@@ -73,14 +76,23 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     with output.condition:
                         output.condition.wait()
                         frame = output.frame
-                        #frame_arr = np.array(frame)
-                        cv_frame = cv2.imread(frame, cv2.IMREAD_UNCHANGED)
-                        #frame = cv2.cvtColor(output.frame, cv2.COLOR_BGR2GRAY)
-                        #frame = motion.motion_detection(frame)
+                        frame_arr = Image.open(io.BytesIO(frame))
+                        frame_arr = np.asarray(frame_arr)
+                        cv_frame = cv2.cvtColor(frame_arr, cv2.COLOR_BGR2GRAY)
                     if not_set == True:
                         first_frame = cv_frame
                     if motion.motion_detection(cv_frame, first_frame):
+                        #print('motion????')
                         update_page(True)
+                    else:
+                        update_page(False)
+
+                    content = PAGE.encode('utf-8')
+                    self.send_header('Location', '/index.html')
+                    self.send_header('Content-Type', 'text/html')
+                    self.send_header('Content-Length', len(content))
+                    self.end_headers()
+                    self.wfile.write(content)
 
                     self.wfile.write(b'--FRAME\r\n')
                     self.send_header('Content-Type', 'image/jpeg')
@@ -88,6 +100,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
+
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',

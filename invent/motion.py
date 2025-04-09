@@ -8,8 +8,8 @@ def motion_detection(frame, ctrl):
     mtn = False
 
     #making image black & white, NECESSARY for thresholding and contouring
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    
+    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = frame
     #increase the Gaussian blur to decrease the amount of arbitrary noise between frames
     gray = cv2.GaussianBlur(gray, (33, 33), 0)
     
