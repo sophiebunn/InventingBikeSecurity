@@ -11,7 +11,7 @@ def motion_detection(frame, ctrl):
     #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = frame
     #increase the Gaussian blur to decrease the amount of arbitrary noise between frames
-    gray = cv2.GaussianBlur(gray, (33, 33), 0)
+    gray = cv2.GaussianBlur(gray, (51,51), 0)
     
     #comparing the control frame to the current frame
     frameDelta = cv2.absdiff(ctrl, gray)
@@ -29,7 +29,7 @@ def motion_detection(frame, ctrl):
 
         #yes, this is a less than sign
         #making area less than EXCLUDES small contours
-        if area < 900:
+        if area < 100000:
             mtn = True
             continue
 

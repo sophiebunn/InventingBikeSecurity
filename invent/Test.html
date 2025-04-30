@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+
+<!--make sense of parent and child etc in html-->
+
+<html>
+
+    <style>
+
+.slidecontainer{
+        width: 100%; /*what is hte coutside container???*/
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+        margin-top: 35px; /*why didn't work when put int the html div??*/
+        align-items: center;
+        }
+    
+        /*track*/
+        .slider{
+        -webkit-appearance: none; 
+        appearance: none; /*overrides default appearance?? what is the default appearance*/ 
+        width:50%; 
+        height: 10px;
+        border-radius: 50px;
+        background: #b6b6b6;
+        outline: none;
+        opacity: .6;
+        -webkit-transitiion: .2s;
+        
+        transition: opacity .2; /*WhY EXIST*/
+        
+        
+    
+        /*FIX OPACITY*/
+    
+        /*centering; WHY DONT WORK WHEN PUT IN SLIDECONTAINER*/
+        display: block; /* Make the image a block-level element */
+        margin-left: 10px; /* Distribute left margin to the left side */
+        margin-right: 10px; /* Distribute right margin to the right side */
+        }
+    
+        .slider:hover{
+            opacity: .8;
+            
+        }
+    
+        /*slider thumb (little circle)*/
+        .slider::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+         
+            border-radius: 100%;
+            border-width: 100px;
+            background: rgb(1, 150, 187);
+    
+            cursor: pointer;
+             /* MAKE MOUSE CURSOR SOMETHING SILLY GOOF*/
+    
+        }
+    
+        p{
+            margin-top: 100px;
+            font-size: 25px;
+            text-align: center;
+            font-family: Arial;
+            font-weight: bold;
+    
+        }
+    /*create different file*/
+    .centered {
+    display: block; /* Make the image a block-level element */
+    margin-left: auto; /* Distribute left margin to the left side */
+    margin-right: auto; /* Distribute right margin to the right side */
+}
+
+.rounded-centered-video {
+    border-radius: 30px; /* Adjust the value for desired roundness */
+    /*width: 100%;  Make the video responsive */
+    /*height: 100*/
+    display: block; /* Make the image a block-level element */
+    margin-left: auto; /* Distribute left margin to the left side */
+    margin-right: auto; /* Distribute right margin to the right side */
+}
+
+/*padding??*/
+.header {
+  position: sticky;
+  top: 0;
+  color: #ffffff; /*use????*/
+  background: #ffffff;
+  margin-top: -8px; /*needed to use units!!*/
+  margin-right: -8px;
+  margin-left: -8px;
+
+  margin-bottom: 1.5em;
+}
+
+.rectangle {
+font-family: Arial;
+font-weight: bold;
+  height: 75px;
+  width: 80%;
+  color:white;
+  background-color: rgb(255, 255, 255);
+  border-radius:15px;
+  text-align:center;
+  justify-content:center;
+  align-items: center;
+  display: block; /* Make the image a block-level element */
+    margin-left: auto; /* Distribute left margin to the left side */
+    margin-right: auto; /* Distribute right margin to the right side */
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+    display: flex;
+    color: rgb(42, 42, 42) /* how do we know this is referring to text?*/
+}
+
+
+.rectangle1 {
+font-family: Arial;
+font-weight: bold;
+  height: 150px;
+  width: 80%;
+  color:white;
+  background-color: rgb(255, 255, 255);
+  border-radius:15px;
+  text-align:center;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  display: block; /* Make the image a block-level element */
+    margin-left: auto; /* Distribute left margin to the left side */
+    margin-right: auto; /* Distribute right margin to the right side */
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+    display: flex;
+    color: rgb(42, 42, 42) /* how do we know this is referring to text?*/
+}
+
+
+
+.header-link{
+    display: inline-flexbox; /*dif between inline flex and inline flexbox???*/
+    margin-top: 45px;
+    margin-left: 50px; /*REMEMBER to put px*/
+    color: rgb(42, 42, 42);
+    text-decoration: none;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+/*add in font, font size, etc for all lables*/
+.label-low{
+    margin-left: 60px;
+    margin-right: 10px;
+    font-size: 15px;
+    color: #6b6b6b;
+
+}
+
+.label-high{
+    margin-left: 10px;
+    margin-right: 60px;
+    font-size: 15px;
+    color: #6b6b6b;}
+
+
+
+/*can make things obey two dif classes by just putting a space between (look at bookmarked button example)*/
+
+
+    </style>
+    <head>
+        <title> BOK </title>
+        <link rel="icon" type="image\png" href="C:\Users\elena\Downloads\Captura_de_pantalla_2025-04-09_093645-removebg-preview.png">
+       
+   </head>
+
+   <!--Header-->
+   <div class="header" style="display: flex">
+    <img src="C:\Users\elena\Downloads\Captura_de_pantalla_2025-04-09_093645-removebg-preview.png" width="auto" height="100" > <!-- why did it stretch accross pg w width=100??-->
+    <a class="header-link" href="C:\Users\elena\Configure.html"> Configure </a>
+    <a class="header-link" href="C:\Users\elena\History.html"> History </a>
+  </div>
+
+   <body style="background-color:rgb(233, 234, 234);">
+    <img class= "rounded-centered-video" src="C:\Users\elena\Downloads\bird-8788491_1280.jpg" width="80%" height="600"/>
+   </body>
+
+    <div class="rectangle">
+        Motion variable place holder
+    </div>
+
+
+        <head>
+            <!--Why does this need to go inside the head?? worked fine outside of-->
+            <title> Configure My BOK </title>
+            <link rel="icon" type="image\png" href="C:\Users\elena\Downloads\Captura_de_pantalla_2025-04-09_093645-removebg-preview.png">
+        </head>
+        <div class = "rectangle1">
+            Motion Detection Sensitivity
+        <div class="slidecontainer">
+            <div class="label-low">
+            Low
+            </div>
+            <input type="range" min="1" max="100" value="50" class = "slider" id="m_Range"> <!--WHY DOES IT WORK WITH JUST CLASS=SLIDE-->
+            <div class="label-high">
+            High  
+        </div>
+        </div>
+    </div>
+ 
+</html>
